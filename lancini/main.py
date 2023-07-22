@@ -6,93 +6,18 @@ palindromes in the Spanish language.
 
 import logging
 import sys
-from bz2 import BZ2Decompressor
 from pathlib import Path
 from typing import Final, Generator
 
-import requests
-
 from lancini.cli import Command, get_parser
+from lancini.corpus import download_corpus, load_corpus, preprocess_corpus
 
-SPANISH_WORD_CORPUS_URL: Final[
-    str
-] = "https://cs.famaf.unc.edu.ar/~ccardellino/SBWCE/SBW-vectors-300-min5.txt.bz2"
-SPANISH_WORD_CORPUS_COMPRESSED_PATH: Final[Path] = Path("data/SBW-vectors-300-min5.txt")
-SPANISH_WORD_CORPUS_PREPROCESSED_PATH: Final[Path] = Path(
-    "data/SBW-vectors-300-min5.preprocessed.txt"
-)
 PALINDROMES_PATH: Final[Path] = Path("data/palindromes.csv")
 MAX_PALINDROME_LENGTH: Final[int] = 10
 PALINDROME_BUFFER: Final[int] = 20
 VALID_CHARACTERS: Final[str] = "abcdefghijklmnñopqrstuvwxyzáéíóúü"
 
 logger = logging.getLogger()
-
-
-def download_corpus() -> None:
-    """
-    Download the Spanish corpus (Spanish Billion Word Corpus and Embeddings)
-    if not already present.
-    ref: https://crscardellino.ar/SBWCE/
-    """
-
-    if (
-        SPANISH_WORD_CORPUS_COMPRESSED_PATH.exists()
-        and SPANISH_WORD_CORPUS_COMPRESSED_PATH.is_file()
-    ):
-        logger.info("Spanish corpus already downloaded")
-    else:
-        logger.info("Downloading Spanish corpus...")
-        try:
-            response = requests.get(
-                SPANISH_WORD_CORPUS_URL, allow_redirects=True, timeout=30
-            )
-        except requests.exceptions.HTTPError:
-            logger.error("HTTP error while downloading Spanish corpus!")
-            sys.exit(1)
-
-        data = response.content
-        decompressor = BZ2Decompressor()
-
-        logger.info("Storing Spanish corpus to data directory...")
-        with open(SPANISH_WORD_CORPUS_COMPRESSED_PATH, "wb") as corpus_file:
-            corpus_file.write(decompressor.decompress(data))
-
-        logger.info("Spanish corpus downloaded and stored successfully!")
-
-
-def preprocess_corpus() -> None:
-    """
-    Extracts and deduplicates words from the Spanish corpus.
-    """
-
-    if (
-        SPANISH_WORD_CORPUS_PREPROCESSED_PATH.exists()
-        and SPANISH_WORD_CORPUS_PREPROCESSED_PATH.is_file()
-    ):
-        logger.info("Spanish corpus already preprocessed")
-    else:
-        logger.info("Preprocessing Spanish corpus...")
-
-        with open(
-            SPANISH_WORD_CORPUS_COMPRESSED_PATH, "r", encoding="utf-8"
-        ) as corpus_file:
-            lines = corpus_file.readlines()[1:]
-
-        words: set[str] = {line.split()[0].lower().strip() for line in lines if line}
-        words = {
-            word
-            for word in words
-            if word.isascii() and word.isalpha() and not word.isnumeric()
-        }
-
-        logger.info("Storing preprocessed Spanish corpus to data directory...")
-        with open(
-            SPANISH_WORD_CORPUS_PREPROCESSED_PATH, "w", encoding="utf-8"
-        ) as corpus_file:
-            corpus_file.writelines([f"{word}\n" for word in sorted(words)])
-
-        logger.info("Preprocessed Spanish corpus stored successfully!")
 
 
 def is_palindrome(phrase: str) -> bool:
@@ -111,23 +36,6 @@ def load_existing_palindromes() -> set[str]:
     if PALINDROMES_PATH.exists() and PALINDROMES_PATH.is_file():
         with open(PALINDROMES_PATH, "r", encoding="utf-8") as palindromes_file:
             return {line.strip(",")[0] for line in palindromes_file.readlines()}
-    else:
-        return set()
-
-
-def load_corpus() -> set[str]:
-    """
-    Loads preprocessed Spanish words from the file system.
-    """
-
-    if (
-        SPANISH_WORD_CORPUS_PREPROCESSED_PATH.exists()
-        and SPANISH_WORD_CORPUS_PREPROCESSED_PATH.is_file()
-    ):
-        with open(
-            SPANISH_WORD_CORPUS_PREPROCESSED_PATH, "r", encoding="utf-8"
-        ) as corpus_file:
-            return {line.strip() for line in corpus_file.readlines()}
     else:
         return set()
 
@@ -175,14 +83,11 @@ def is_phrase(phrase: str, corpus: set[str]) -> str:
     return ""
 
 
-def generate_palindromes() -> None:
+def generate_palindromes(corpus: set[str]) -> None:
     """
     Performs an exhaustive search to generate palindromes
     by brute force, and stores them to the file system.
     """
-
-    logging.info("Loading corpus...")
-    corpus: set[str] = load_corpus()
 
     if not corpus:
         logging.error("Corpus is empty!")
@@ -247,7 +152,8 @@ def main() -> None:
             download_corpus()
             preprocess_corpus()
         case Command.GENERATE:
-            generate_palindromes()
+            corpus: set[str] = load_corpus()
+            generate_palindromes(corpus)
         case _:
             logger.error("Command not supported!")
             sys.exit(1)
