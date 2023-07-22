@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "lancini"
+version = "0.1.0"
+description = "Palindrome-related scripts in Python for the Spanish language"
+authors = ["Andrés Ignacio Torres <dev@aitorres.com>"]
+readme = "README.md"
+repository = "https://github.com/aitorres/lancini"
+keywords = [
+    "python",
+    "cli",
+    "spanish",
+    "español",
+    "natural language",
+    "palindromes"
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/aitorres/lancini/issues"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+flake8 = "^6.0.0"
+mypy = "^1.4.1"
+pylint = "^2.17.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
