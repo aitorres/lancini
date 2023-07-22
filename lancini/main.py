@@ -109,13 +109,18 @@ def preprocess_corpus() -> None:
         ) as corpus_file:
             lines = corpus_file.readlines()[1:]
 
-        words = {line.split()[0].lower() for line in lines}
+        words: set[str] = {line.split()[0].lower().strip() for line in lines if line}
+        words = {
+            word
+            for word in words
+            if word.isascii() and word.isalpha() and not word.isnumeric()
+        }
 
         logger.info("Storing preprocessed Spanish corpus to data directory...")
         with open(
             SPANISH_WORD_CORPUS_PREPROCESSED_PATH, "w", encoding="utf-8"
         ) as corpus_file:
-            corpus_file.writelines(sorted(words))
+            corpus_file.writelines([f"{word}\n" for word in sorted(words)])
 
         logger.info("Preprocessed Spanish corpus stored successfully!")
 
