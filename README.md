@@ -6,10 +6,10 @@ Lancini is a set of Python scripts to generate and store palindromes in the Span
 
 ## Installation
 
-Clone this repository and use [poetry](https://python-poetry.org/)[^1] to install the package:
+Clone this repository with the recursive flag (to fetch submodules) and use [poetry](https://python-poetry.org/)[^1] to install the package:
 
 ```bash
-git clone https://github.com/aitorres/lancini.git
+git clone --recursive https://github.com/aitorres/lancini.git
 cd lancini
 poetry install
 ```
@@ -20,7 +20,7 @@ poetry install
 
 You can use the `lancini` script as the entry point. `lancini` currently supports two commands: `setup` to download and preprocess the Spanish corpus (publicly-available) and `generate` to generate palindromes.
 
-```
+```bash
 lancini setup
 lancini generate
 ```
