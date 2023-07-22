@@ -3,27 +3,17 @@ Main module of `lancini` with scripts to generate and store
 palindromes in the Spanish language.
 """
 
-import argparse
+
 import logging
 import sys
 from bz2 import BZ2Decompressor
-from enum import Enum
 from pathlib import Path
 from typing import Final, Generator
 
 import requests
 
+from lancini.cli import Command, get_parser
 
-class Command(Enum):
-    """
-    Enumerates all possible commands to be used with lancini's CLI
-    """
-
-    SETUP = "setup"
-    GENERATE = "generate"
-
-
-AVAILABLE_COMMANDS: Final[list[Command]] = list(Command)
 SPANISH_WORD_CORPUS_URL: Final[
     str
 ] = "https://cs.famaf.unc.edu.ar/~ccardellino/SBWCE/SBW-vectors-300-min5.txt.bz2"
@@ -37,31 +27,6 @@ PALINDROME_BUFFER: Final[int] = 20
 VALID_CHARACTERS: Final[str] = "abcdefghijklmnñopqrstuvwxyzáéíóúü"
 
 logger = logging.getLogger()
-
-
-def get_parser() -> argparse.ArgumentParser:
-    """
-    Generate and return a parser for the CLI tool
-    """
-
-    parser = argparse.ArgumentParser(
-        prog="lancini",
-        description=(
-            "A CLI tool to generate and store palindromes in the Spanish language."
-        ),
-        epilog="¡Yo sonoro no soy! :-)",
-    )
-    parser.add_argument(
-        "command",
-        metavar="COMMAND",
-        type=Command,
-        choices=AVAILABLE_COMMANDS,
-        help=(
-            "Command to use. "
-            f"Supported values are {', '.join(str(AVAILABLE_COMMANDS))}."
-        ),
-    )
-    return parser
 
 
 def download_corpus() -> None:
