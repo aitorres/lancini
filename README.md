@@ -14,6 +14,8 @@ cd lancini
 poetry install
 ```
 
+[^1]: You need __poetry__ to find palindromes, isn't it beautiful? By the way, this project is inspired by (and name after) Darío Lancini, a Venezuelan writer famous for his work exploring palindromes in fiction and poetry.
+
 ## Usage
 
 You can use the `lancini` script as the entry point. `lancini` currently supports two commands: `setup` to download and preprocess the Spanish corpus (publicly-available) and `generate` to generate palindromes.
