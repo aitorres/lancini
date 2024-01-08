@@ -65,6 +65,25 @@ def generate_word(length: int) -> Generator[str, None, None]:
                 yield word + character
 
 
+def is_relevant_phrase(phrase: str, corpus: set[str]) -> str:
+    """
+    Checks if a phrase is made of words in the corpus and
+    is interesting, and return the phrase.
+    """
+
+    phrase = is_phrase(phrase, corpus)
+
+    if phrase:
+        if len(phrase.split()) == len("".join(phrase.split())):
+            logger.info(
+                "Palindrome made out of single letters "
+                "or one letter words, skipping..."
+            )
+            return ""
+
+    return phrase
+
+
 def is_phrase(phrase: str, corpus: set[str]) -> str:
     """
     Checks if a phrase is made of words in the corpus and
@@ -125,8 +144,13 @@ def generate_palindromes(corpus: set[str]) -> None:
                         "Palindrome (%s) is new, checking if part of corpus", word
                     )
 
-                    if phrase := is_phrase(word, corpus):
-                        logger.info("Palindrome (%s) is part of corpus!", word)
+                    if phrase := is_relevant_phrase(word, corpus):
+                        logger.info(
+                            "Palindrome (%s) is part of corpus with phrase (%s)!",
+                            word,
+                            phrase,
+                        )
+
                         new_palindromes.append((word, phrase))
 
                 if len(new_palindromes) >= PALINDROME_BUFFER:
