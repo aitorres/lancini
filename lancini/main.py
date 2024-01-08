@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Final, Generator
 
 from lancini.cli import Command, get_parser
-from lancini.corpus import download_corpus, load_corpus, preprocess_corpus
+from lancini.corpus import load_corpus
 
 PALINDROMES_PATH: Final[Path] = Path("data/palindromes.csv")
 MAX_PALINDROME_LENGTH: Final[int] = 10
@@ -148,9 +148,6 @@ def main() -> None:
     command: Command = args.command
 
     match command:
-        case Command.SETUP:
-            download_corpus()
-            preprocess_corpus()
         case Command.GENERATE:
             corpus: set[str] = load_corpus()
             generate_palindromes(corpus)

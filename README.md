@@ -18,17 +18,15 @@ poetry install
 
 ## Usage
 
-You can use the `lancini` script as the entry point. `lancini` currently supports two commands: `setup` to download and preprocess the Spanish corpus (publicly-available) and `generate` to generate palindromes.
+You can use the `lancini` script as the entry point. `lancini` currently supports one command: `generate` to generate palindromes.
 
 ```bash
-lancini setup
 lancini generate
 ```
 
 It's useful to note that:
 
-- The `setup` process only needs to be done once
-- All data (corpus and output) will be stored to a `data` folder inside the project
+- All data (output) will be stored to a `data` folder inside the project
 - `lancini generate` can be interrupted and run again as it stores all found palindromes continuously (in batches), and will not store any duplicate palindromes on re-runs.
 - Palindromes will be stored within a `csv` file with two columns: the generated "palindrome" (no space between words) and the corresponding phrase in Spanish as it was matched in the corpus.
 - Note that it's plausible that a generated palindrome has more than one associated phrase, but the tool only generates the longest one. Try to break down palindrome phrases if you suspect it's possible ;-)
