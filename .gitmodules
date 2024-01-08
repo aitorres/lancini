@@ -1,0 +1,3 @@
+[submodule "diccionario-espanol-txt"]
+	path = diccionario-espanol-txt
+	url = git@github.com:JorgeDuenasLerin/diccionario-espanol-txt.git
