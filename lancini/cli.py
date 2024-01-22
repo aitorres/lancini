@@ -13,7 +13,6 @@ class Command(Enum):
     Enumerates all possible commands to be used with lancini's CLI
     """
 
-    SETUP = "setup"
     GENERATE = "generate"
 
 
