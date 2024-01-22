@@ -12,6 +12,7 @@ from typing import Final, Generator
 
 from lancini.cli import Command, get_parser
 from lancini.corpus import load_corpus
+from lancini.zaloma import generate_zaloma
 
 PALINDROMES_PATH: Final[Path] = Path("data/palindromes.csv")
 MAX_PALINDROME_LENGTH: Final[int] = 10
@@ -178,6 +179,8 @@ def main() -> None:
         case Command.GENERATE:
             corpus: set[str] = load_corpus()
             generate_palindromes(corpus)
+        case Command.ZALOMA:
+            generate_zaloma()
         case _:
             logger.error("Command not supported!")
             sys.exit(1)

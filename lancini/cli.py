@@ -14,6 +14,7 @@ class Command(Enum):
     """
 
     GENERATE = "generate"
+    ZALOMA = "zaloma"
 
 
 AVAILABLE_COMMANDS: Final[list[Command]] = list(Command)
