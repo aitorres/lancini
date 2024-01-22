@@ -1,0 +1,10 @@
+- https://github.com/sbosio/rla-es/wiki/Clasificaci%C3%B3n-de-lemas
+- https://github.com/sbosio/rla-es
+- https://raw.githubusercontent.com/wooorm/dictionaries/main/dictionaries/es-VE/index.dic
+- https://github.com/sbosio/rla-es/commit/1df5f46654315d7d2cd68888c41e756fe046cf9e#diff-ea86031434acecf80dce40487a33907d4b2fe2e2498a4464951eb6173896b4cf
+- https://manpages.ubuntu.com/manpages/noble/en/man5/hunspell.5.html
+- https://stackoverflow.com/questions/42566916/how-to-obtain-all-possible-words-from-given-hunspell-dictionary
+- https://stackoverflow.com/questions/13725861/generate-all-word-forms-using-lucene-hunspell/#66661578
+- https://gitlab.crans.org/mevel/dictionnaires/-/blob/master/unmunch/ocaml-unmunch.ml
+- https://github.com/JorgeDuenasLerin/diccionario-espanol-txt/blob/master/0_palabras_todas.txt
+- https://github.com/JorgeDuenasLerin/diccionario-espanol-txt
