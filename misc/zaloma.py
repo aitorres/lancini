@@ -19,17 +19,8 @@ with open(file_path, "r", encoding="utf8") as f:
 
 words_len_6 = [word for word in words if len(word) == 6]
 
-# Zaloma 1
-print("Zaloma 1")
-
-for word in words_len_6:
-    word_shift_2 = word[2:] + word[:2]
-    word_shift_4 = word[4:] + word[:4]
-    if word_shift_2 in words_len_6 and word_shift_4 in words_len_6:
-        print(word, word_shift_2, word_shift_4)
-
-# Zaloma 2
-print("Zaloma 2")
+# Zaloma
+print("Zaloma")
 
 for i, word_1 in enumerate(words_len_6):
     for j, word_2 in enumerate(words_len_6[i:], i):
