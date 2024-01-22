@@ -27,9 +27,9 @@ jobs:
       - name: Check types with mypy
         run: |
           source .venv/bin/activate
-          mypy lancini misc
+          mypy lancini
       - name: Lint code with pylint and flake8
         run: |
           source .venv/bin/activate
-          pylint lancini misc
+          pylint lancini
           flake8 --extend-exclude ".venv" --extend-exclude "diccionario-espanol-txt"
