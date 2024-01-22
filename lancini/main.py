@@ -6,6 +6,7 @@ palindromes in the Spanish language.
 
 import logging
 import sys
+from os import makedirs
 from pathlib import Path
 from typing import Final, Generator
 
@@ -32,6 +33,8 @@ def load_existing_palindromes() -> set[str]:
     """
     Loads existing palindromes from the file system.
     """
+
+    makedirs(PALINDROMES_PATH.parent, exist_ok=True)
 
     if PALINDROMES_PATH.exists() and PALINDROMES_PATH.is_file():
         with open(PALINDROMES_PATH, "r", encoding="utf-8") as palindromes_file:
