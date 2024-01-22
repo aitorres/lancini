@@ -45,7 +45,7 @@ def store_palindromes(palindromes: list[tuple[str, str]]) -> None:
     Stores new palindromes to the file system.
     """
 
-    with open(PALINDROMES_PATH, "a", encoding="utf-8") as palindromes_file:
+    with open(PALINDROMES_PATH, "a+", encoding="utf-8") as palindromes_file:
         palindromes_file.writelines(
             [f"{palindrome[0]},{palindrome[1]}\n" for palindrome in palindromes]
         )
