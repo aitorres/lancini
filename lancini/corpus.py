@@ -33,6 +33,14 @@ UNWANTED_WORDS: set[str] = {
     "w",
     "x",
     "z",
+    "pu",
+    "qu",
+    "fu",
+    "et",
+    "rr",
+    "ll",
+    "ch",
+    "fo",
 }
 
 logger = logging.getLogger()
