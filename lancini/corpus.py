@@ -10,6 +10,30 @@ from typing import Final
 SPANISH_WORD_LIST_PATH: Final[Path] = Path(
     "diccionario-espanol-txt/0_palabras_todas.txt"
 )
+UNWANTED_WORDS: set[str] = {
+    "b",
+    "c",
+    "d",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "ñ",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "v",
+    "w",
+    "x",
+    "z",
+}
 
 logger = logging.getLogger()
 
@@ -28,7 +52,7 @@ def preprocess_corpus(corpus: set[str]) -> set[str]:
     }
 
     logger.info("Preprocessed Spanish corpus stored successfully!")
-    return words
+    return words - UNWANTED_WORDS
 
 
 def load_corpus() -> set[str]:
