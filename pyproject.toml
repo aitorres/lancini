@@ -22,7 +22,7 @@ python = "^3.11"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^7.0.0"
-black = "^23.12.1"
+black = "^24.3.0"
 mypy = "^1.8.0"
 pylint = "^3.0.3"
 isort = "^5.13.2"
