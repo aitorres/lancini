@@ -3,7 +3,6 @@ Main module of `lancini` with scripts to generate and store
 palindromes in the Spanish language.
 """
 
-
 import logging
 import sys
 from os import makedirs
@@ -61,8 +60,7 @@ def generate_word(length: int) -> Generator[str, None, None]:
     """
 
     if length == 1:
-        for character in VALID_CHARACTERS:
-            yield character
+        yield from VALID_CHARACTERS
     else:
         for word in generate_word(length - 1):
             for character in VALID_CHARACTERS:
